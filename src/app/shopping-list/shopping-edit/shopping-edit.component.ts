@@ -20,6 +20,6 @@ export class ShoppingEditComponent {
       this.amountInputRef.nativeElement.value
     );
 
-    this.shoppingListService.ingredientAdded.emit(newIngredient);
+    this.shoppingListService.addIngredient(newIngredient);
   }
 }

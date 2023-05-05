@@ -25,7 +25,7 @@ export class RecipeService {
       'Taste Bosnia!',
       'https://st2.depositphotos.com/1004288/11083/i/950/depositphotos_110833444-stock-photo-cevapcici-bosnian-minced-meat-kebab.jpg',
       [
-        new Ingredient('Spiced minced meat', 250),
+        new Ingredient('Minced meat with spices', 250),
         new Ingredient('Chopped onions', 75),
         new Ingredient('Lepinja bread', 1),
       ]

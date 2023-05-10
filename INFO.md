@@ -41,7 +41,7 @@ E.g., you are using .subscribe() method to get data and you can transform that d
 For example you have username = 'Max' and you output it with string interpolation {{ username }}, but you want it to be uppercase only when you render it to the screen.
 Here you can use built-in pipe such as {{ username | uppercase }}
 
-Pipes are applied generally from left-to-right so you may have to consider the ordering of the pipes if you chain multiple pipes together
+Pipes are applied generally from left-to-right so you may have to consider the ordering of the pipes if you chain multiple pipes together.
 
 # Interceptors
 
@@ -51,15 +51,16 @@ Implementing them is done by adding them to app.module inside of providers like 
 `import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';`
 `import { AuthInterceptorService } from './auth-interceptor.service';`
 
-> // Ordering of the interceptors is important in some cases since the order defines which interceptor is executed first, second, etc.
-> `imports: [..., HttpClientModule],`
-> `providers: [`
-> > `{`
-> > `provide: HTTP_INTERCEPTORS,`
-> > `useClass: AuthInterceptorService,`
-> > `multi: true, // If you have multiple interceptors, you can pass this prop so that Angular doesn't overwrite other interceptors with this one`
-> > `},`
-> > `]`
+* Ordering of the interceptors is important in some cases since the order defines which interceptor is executed first, second, etc.
+`imports: [..., HttpClientModule],`
+  `providers: [`
+    `{`
+      `provide: HTTP_INTERCEPTORS,`
+      `useClass: AuthInterceptorService,`
+      * If you have multiple interceptors, you can pass this prop so that Angular doesn't overwrite other interceptors with this one
+      `multi: true,`
+    `},`
+  `]`
 
 Use case for interceptors is when you perhaps need to attach some custom headers to each request you make. Also, it's possible to modify the request object, it is immutable by itself but you can assign a clone of it to a variable and then modify it and handle it.
 You also have to `return next.handle(req);` so that request can 'go on'.

@@ -29,3 +29,37 @@ Defining them is almost the same as an EventEmitter:
 
 1. activatedEmitter = new EventEmitter<boolean>();
 2. activatedEmitter = new Subject<boolean>();
+
+# Pipes
+
+They are used to transform an output.
+
+E.g., you are using .subscribe() method to get data and you can transform that data by using .pipe().subscribe(...) where, inside of pipe(), you can provide many different functions to transform the data, such as filter, map, etc.
+
+## Built-in pipes
+
+For example you have username = 'Max' and you output it with string interpolation {{ username }}, but you want it to be uppercase only when you render it to the screen.
+Here you can use built-in pipe such as {{ username | uppercase }}
+
+Pipes are applied generally from left-to-right so you may have to consider the ordering of the pipes if you chain multiple pipes together
+
+# Interceptors
+
+They are service-like class that implements HttpInterceptor that requires you to have intercept method that basically works like a middleware for each request sent, so Interceptor can intercept a request before it's sent and before you get a response.
+Implementing them is done by adding them to app.module inside of providers like this:
+
+`import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';`
+`import { AuthInterceptorService } from './auth-interceptor.service';`
+
+> // Ordering of the interceptors is important in some cases since the order defines which interceptor is executed first, second, etc.
+> `imports: [..., HttpClientModule],`
+> `providers: [`
+> > `{`
+> > `provide: HTTP_INTERCEPTORS,`
+> > `useClass: AuthInterceptorService,`
+> > `multi: true, // If you have multiple interceptors, you can pass this prop so that Angular doesn't overwrite other interceptors with this one`
+> > `},`
+> > `]`
+
+Use case for interceptors is when you perhaps need to attach some custom headers to each request you make. Also, it's possible to modify the request object, it is immutable by itself but you can assign a clone of it to a variable and then modify it and handle it.
+You also have to `return next.handle(req);` so that request can 'go on'.

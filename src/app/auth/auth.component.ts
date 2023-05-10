@@ -16,6 +16,10 @@ export class AuthComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  onHandleClosePopup() {
+    this.error = null;
+  }
+
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }

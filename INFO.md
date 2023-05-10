@@ -64,3 +64,11 @@ Implementing them is done by adding them to app.module inside of providers like 
 
 Use case for interceptors is when you perhaps need to attach some custom headers to each request you make. Also, it's possible to modify the request object, it is immutable by itself but you can assign a clone of it to a variable and then modify it and handle it.
 You also have to `return next.handle(req);` so that request can 'go on'.
+
+# Dynamic Components
+
+They are basically components that get rendered "on demand", so when something specific happens in our code. Example would be toasts, alert popups, etc.
+You use them same as other components but you control their render by using structural directive *ngIf.
+
+Old way of doing this (no longer exists) was using 'Dynamic Component Loader' but it does exists as general concept meaning that you create a component in code and then manually attach it to the DOM. So, by doing this, you have to control in the code by yourself how that component is instantiated, how the data is passed into it and also how is the component removed.
+This means that you don't touch the template but you do everything in the code.

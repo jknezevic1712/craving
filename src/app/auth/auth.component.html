@@ -3,7 +3,12 @@
     <!-- <div class="alert alert-danger" *ngIf="error">
       <p>{{ error }}</p>
     </div> -->
-    <app-alert [message]="'error'" *ngIf="error" (close)="onHandleClosePopup()"></app-alert>
+
+    <!-- Below is a dynamic component that's rendered via structural directive *ngIf -->
+    <!-- <app-alert [message]="'error'" *ngIf="error" (close)="onHandleClosePopup()"></app-alert> -->
+
+    <!-- Below is a dynamic component rendered programatically (DCL - Dynamic Component Loader) -->
+    <ng-template appPlaceholder></ng-template>
 
     <div style="text-align: center" *ngIf="isLoading">
       <app-loading-spinner></app-loading-spinner>

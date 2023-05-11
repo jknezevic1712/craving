@@ -1,3 +1,41 @@
+# What are "Modules" (ngModule)
+
+1. AppModule
+  1. AppComponent
+  2. ProductsComponent
+  3. HighlightDirective
+  4. ProductsService
+
+Angular analyzes NgModules to "understand" your app and its features while also defining all building blocks the app uses: Components, Directives, Services.
+App requires at least one module (AppModule) but may be split into multiple modules.
+Core Angular features are included in Angular modules (e.g. FormsModule) to load them only when needed.
+Also, you cannot use a feature/building block without firstly including it in a module.
+
+## Working with multiple Modules
+
+You can split your AppModule into smaller modules (feature modules) that can make your AppModule leaner while you group together related components, directives, pipes, etc. into one separate Module.
+
+Example:
+
+1. AppModule
+  1. AppComponent
+  2. ProductListComponent
+  3. ProductComponent
+  4. OrdersComponent
+  5. HighlightDirective
+
+
+Into:
+
+1. AppModule
+  1. AppComponent
+2. ProductsModule
+  1. ProductListComponent
+  2. ProductComponent
+3. OrdersModule
+  1. OrdersComponent
+  2. HighlightDirective
+
 # Observables
 
 They are various data sources, such as: (User Input) Events, Http Requests, Triggered in Code, ...

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { RecipesRoutingModule } from './recipes-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 import { RecipesComponent } from './recipes.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
@@ -21,10 +21,10 @@ import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
     RecipeStartComponent,
     RecipeEditComponent,
   ],
-  imports: [RouterModule, RecipesRoutingModule, CommonModule, ReactiveFormsModule],
+  imports: [RouterModule, RecipesRoutingModule, ReactiveFormsModule, SharedModule],
   /* 
   * NOTE
-  
+
   There is no reason to still export all these recipe components because we're now only using them internally in the recipes module.
   We're using them either embedded into other components here, or by loading them through the recipes routing module.
   Both is part of this file.

@@ -36,6 +36,31 @@ Into:
   1. OrdersComponent
   2. HighlightDirective
 
+
+## Shared Modules
+
+In a case where you have split your AppModule into multiple separate Modules and in each of those you have a few Modules imported that are the same in all of them you can create a Shared Module that would import all those duplicate Modules and export them so that we can import one Module instead of duplicating the imports.
+
+## CoreModule
+
+CoreModule makes the AppModule a bit leaner, so in case if you had a situation like this:
+
+1. AppModule
+  1. AppComponent
+  2. ProductsService
+  3. AnalyticsService
+
+You can turn this into this:
+
+1. AppModule
+  1. AppComponent
+  2. CoreModule
+2. CoreModule
+  1. ProductsService
+  2. AnalyticsService
+
+Ofcourse, if you use { providedIn: 'root' } inside of @Injectable, then you don't have services added to the providers array so you have no need to do this.
+
 # Observables
 
 They are various data sources, such as: (User Input) Events, Http Requests, Triggered in Code, ...

@@ -61,6 +61,47 @@ You can turn this into this:
 
 Ofcourse, if you use { providedIn: 'root' } inside of @Injectable, then you don't have services added to the providers array so you have no need to do this.
 
+## Lazy Loading
+
+Loading Modules "on demand" meaning that if we have AppModule for /, ProductsModule for /products and AdminModule for /admin, we load the Modules (download the code) when we need it, so when we are on a specific route related to a certain Module.
+
+In order to use this feature, you should have feature Modules together with their own routes inside of them.
+
+How to implement:
+
+1. Inside of your feature Module routing, make your path an empty string, so from e.g. path: 'auth' => path: ''
+2. Inside of app-routing, so your main routing Module, write following:
+  `{`
+    `path: 'auth',`
+    `loadChildren: () =>`
+      `import('./auth/auth.module').then((mod) => mod.AuthModule),`
+  `}`
+3. Inside of your app.module.ts, remove the feature Module import so that it doesn't get included inside of the main.js bundle
+
+### Preloading strategy
+
+You can preload some feature Modules by either defining your custom preloading strategy so that only certain feature Modules get preloaded or you can provide PreloadAllModules which will preload all Modules but I'm not too sure how does this help with downloading less code.
+Adding preloading strategy inside of app-routing.module.ts:
+
+`RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules })`
+
+### Services and Modules
+
+You can provide services by adding them in:
+
+1. AppModule (either in providers array or inside of @Injectable by adding { providedIn: 'root' })
+  1. Service available app-wide because root injector is used
+  2. Best thing would be to provide services globally unless you have a case where a Component needs to have its own service/instance because the service is perhaps irrelevant for other Components
+2. AppComponent(or other Components)
+  1. Service is available in component-tree because component-specific injector is used
+  2. Provide services here only if the service is relevant only for this component-tree and the rest of the Components doesn't care about it
+3. Eager-loaded Module
+  1. Service available app-wide because root injector is used
+  2. Providing services here should be avoided since the effect is the same as providing them inside of AppModule but it's harder to detect that a service was provided here and can lead to unexpected behavior or confusion for other devs.
+4. Lazy-loaded Module
+  1. Service available in loaded module with its own instance because child injector is used
+  2. You can provide service here only if you require to have a separate instance of that service in this Module
+
 # Observables
 
 They are various data sources, such as: (User Input) Events, Http Requests, Triggered in Code, ...

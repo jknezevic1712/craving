@@ -181,3 +181,15 @@ You use them same as other components but you control their render by using stru
 
 Old way of doing this (no longer exists) was using 'Dynamic Component Loader' but it does exists as general concept meaning that you create a component in code and then manually attach it to the DOM. So, by doing this, you have to control in the code by yourself how that component is instantiated, how the data is passed into it and also how is the component removed.
 This means that you don't touch the template but you do everything in the code.
+
+# Standalone Components vs NgModules (quote from Max 'Angular - The Complete Guide')
+
+Angular 14 introduced standalone components in "Preview Mode". With Angular 15, this feature now became stable (the syntax didn't change though).
+
+You may now use standalone components instead of NgModules in production-ready apps. And, as will be shown throughout this section, you can also mix and match the concepts as needed.
+
+But should you use standalone components in all scenarios?
+
+Well, for the moment, that's probably a "No". Especially for large, very complex applications, NgModules reduce the amount of boilerplate code (imports etc.) that needs to be written. NgModules can also help with structuring dependency injection, bundling features together and more.
+
+But this may change in the future, as Angular continues to evolve and new patterns may emerge.

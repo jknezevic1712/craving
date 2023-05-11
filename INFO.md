@@ -77,6 +77,7 @@ How to implement:
     `loadChildren: () =>`
       `import('./auth/auth.module').then((mod) => mod.AuthModule),`
   `}`
+
 3. Inside of your app.module.ts, remove the feature Module import so that it doesn't get included inside of the main.js bundle
 
 ### Preloading strategy
@@ -163,7 +164,9 @@ Implementing them is done by adding them to app.module inside of providers like 
     `{`
       `provide: HTTP_INTERCEPTORS,`
       `useClass: AuthInterceptorService,`
+
       * If you have multiple interceptors, you can pass this prop so that Angular doesn't overwrite other interceptors with this one
+      
       `multi: true,`
     `},`
   `]`

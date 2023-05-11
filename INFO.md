@@ -1,10 +1,10 @@
 # What are "Modules" (ngModule)
 
 1. AppModule
-  1. AppComponent
-  2. ProductsComponent
-  3. HighlightDirective
-  4. ProductsService
+   1. AppComponent
+   2. ProductsComponent
+   3. HighlightDirective
+   4. ProductsService
 
 Angular analyzes NgModules to "understand" your app and its features while also defining all building blocks the app uses: Components, Directives, Services.
 App requires at least one module (AppModule) but may be split into multiple modules.
@@ -18,23 +18,23 @@ You can split your AppModule into smaller modules (feature modules) that can mak
 Example:
 
 1. AppModule
-  1. AppComponent
-  2. ProductListComponent
-  3. ProductComponent
-  4. OrdersComponent
-  5. HighlightDirective
+   1. AppComponent
+   2. ProductListComponent
+   3. ProductComponent
+   4. OrdersComponent
+   5. HighlightDirective
 
 
 Into:
 
 1. AppModule
-  1. AppComponent
+   1. AppComponent
 2. ProductsModule
-  1. ProductListComponent
-  2. ProductComponent
+   1. ProductListComponent
+   2. ProductComponent
 3. OrdersModule
-  1. OrdersComponent
-  2. HighlightDirective
+   1. OrdersComponent
+   2. HighlightDirective
 
 
 ## Shared Modules
@@ -46,18 +46,18 @@ In a case where you have split your AppModule into multiple separate Modules and
 CoreModule makes the AppModule a bit leaner, so in case if you had a situation like this:
 
 1. AppModule
-  1. AppComponent
-  2. ProductsService
-  3. AnalyticsService
+   1. AppComponent
+   2. ProductsService
+   3. AnalyticsService
 
 You can turn this into this:
 
 1. AppModule
-  1. AppComponent
-  2. CoreModule
+   1. AppComponent
+   2. CoreModule
 2. CoreModule
-  1. ProductsService
-  2. AnalyticsService
+   1. ProductsService
+   2. AnalyticsService
 
 Ofcourse, if you use { providedIn: 'root' } inside of @Injectable, then you don't have services added to the providers array so you have no need to do this.
 
@@ -90,17 +90,17 @@ Adding preloading strategy inside of app-routing.module.ts:
 You can provide services by adding them in:
 
 1. AppModule (either in providers array or inside of @Injectable by adding { providedIn: 'root' })
-  1. Service available app-wide because root injector is used
-  2. Best thing would be to provide services globally unless you have a case where a Component needs to have its own service/instance because the service is perhaps irrelevant for other Components
+   1. Service available app-wide because root injector is used
+   2. Best thing would be to provide services globally unless you have a case where a Component needs to have its own service/instance because the service is perhaps irrelevant for other Components
 2. AppComponent(or other Components)
-  1. Service is available in component-tree because component-specific injector is used
-  2. Provide services here only if the service is relevant only for this component-tree and the rest of the Components doesn't care about it
+   1. Service is available in component-tree because component-specific injector is used
+   2. Provide services here only if the service is relevant only for this component-tree and the rest of the Components doesn't care about it
 3. Eager-loaded Module
-  1. Service available app-wide because root injector is used
-  2. Providing services here should be avoided since the effect is the same as providing them inside of AppModule but it's harder to detect that a service was provided here and can lead to unexpected behavior or confusion for other devs.
+   1. Service available app-wide because root injector is used
+   2. Providing services here should be avoided since the effect is the same as providing them inside of AppModule but it's harder to detect that a service was provided here and can lead to unexpected behavior or confusion for other devs.
 4. Lazy-loaded Module
-  1. Service available in loaded module with its own instance because child injector is used
-  2. You can provide service here only if you require to have a separate instance of that service in this Module
+   1. Service available in loaded module with its own instance because child injector is used
+   2. You can provide service here only if you require to have a separate instance of that service in this Module
 
 # Observables
 

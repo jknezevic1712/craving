@@ -104,6 +104,8 @@ You can provide services by adding them in:
    1. Service available in loaded module with its own instance because child injector is used
    2. You can provide service here only if you require to have a separate instance of that service in this Module
 
+Important note is that, in case you have a SharedModule that you import in a lazy-loaded module and inside of eagerly-loaded module, that SharedModules' services will have separate instances for each those Modules since importing SharedModule inside of lazy-loaded module will make this SharedModule lazy-loaded module as well.
+
 # Observables
 
 They are various data sources, such as: (User Input) Events, Http Requests, Triggered in Code, ...

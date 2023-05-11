@@ -6,8 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AlertComponent } from './shared/alert/alert.component';
@@ -17,6 +15,7 @@ import { PlaceholderDirective } from './shared/placeholder/placeholder.directive
 
 import { AppRoutingModule } from './app-routing.module';
 import { RecipesModule } from './recipes/recipes.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
@@ -24,8 +23,6 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
   declarations: [
     AppComponent,
     HeaderComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
     DropdownDirective,
     AuthComponent,
     LoadingSpinnerComponent,
@@ -38,7 +35,8 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    RecipesModule
+    RecipesModule,
+    ShoppingListModule
   ],
   providers: [
     {

@@ -71,6 +71,7 @@ How to implement:
 
 1. Inside of your feature Module routing, make your path an empty string, so from e.g. path: 'auth' => path: ''
 2. Inside of app-routing, so your main routing Module, write following:
+
   `{`
     `path: 'auth',`
     `loadChildren: () =>`
@@ -153,6 +154,7 @@ They are service-like class that implements HttpInterceptor that requires you to
 Implementing them is done by adding them to app.module inside of providers like this:
 
 `import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';`
+
 `import { AuthInterceptorService } from './auth-interceptor.service';`
 
 * Ordering of the interceptors is important in some cases since the order defines which interceptor is executed first, second, etc.

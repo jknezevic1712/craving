@@ -193,3 +193,54 @@ But should you use standalone components in all scenarios?
 Well, for the moment, that's probably a "No". Especially for large, very complex applications, NgModules reduce the amount of boilerplate code (imports etc.) that needs to be written. NgModules can also help with structuring dependency injection, bundling features together and more.
 
 But this may change in the future, as Angular continues to evolve and new patterns may emerge.
+
+# Classic Change Detection vs Signals
+
+New way of handling data changes and of updating the UI.
+
+## Classic Change Detection
+
+Classic Change Detection (Zone-based Change Detection - uses library zone.js) is looking at our properties we defined and output in the template and when the data changes, UI gets refreshed with the new data.
+So, changes are detected automatically and the UI is also updated automatically.
+
+Problem with this approach is that the overall app performance could be better and the bundle size could be smaller. This is due to Angular using zone.js for change detection which means that Angular is constantly watching all changes and checking all our data and updating UI whenever a change occurs.
+
+## Signals
+
+By using only signals, you don't use zone.js which leads to reduced bundle size as well as Angular not watching our entire app that leads to better performance and smaller bundle.
+The thing is, with signals we "tell" Angular when data changes so that Angular can know which parts of the UI needs to be updated when the related data changes.
+
+With slightly more work, advantages are full control, better performance and smaller bundle size.
+
+### Signal updating
+
+1. Set() -> does not provides as with old value as an arg, but we still can access the counter signal value
+2. Update() -> uses anonymous function that provides old value as an arg, so we are, as we did with set(), assigning a new value to this signal
+3. Mutate() -> similar to update method that's meant to be used for values that can be mutated because for example numbers cannot since you can override a number with a new one, but you can't change an existing number. So mutate() is technically also assigning a new value but by   editing an existing value.
+
+### computed()
+
+computed() -> exists to give you an easy way of creating computed values, so values that depend on other values. E.g.:
+
+`counter = signal(0);`
+
+`doubleCounter = computed(() => this.counter() * 2);`
+
+Here, doubleCounter would be updated by Angular only whenever this counter signal would change.
+Also, in your template you would output this doubleCounter as a signal, so doubleCounter().
+
+### effect()
+
+Similar to useEffect() hook in React, works with signals. For example:
+
+`constructor() {`
+   `effect(() => console.log(this.counter()));`
+`}`
+
+Here effect would run the code defined in it every time this.counter signal changes.
+
+# NgRx (Redux)
+
+State managment solution by Angular team, basically React Redux Angular implementation.
+
+It's an alternative to using services, components and subjects to manage app state, although this approach can work generally for smaller and simpler apps that don't have a ton of components depending on the same data, etc.

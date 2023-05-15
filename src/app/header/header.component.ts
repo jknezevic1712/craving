@@ -1,8 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DataStorageService } from '../shared/data-storage.service';
-import { AuthService } from '../auth/auth.service';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from '../auth/store/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -17,19 +21,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private dataStorageService: DataStorageService,
-    private authService: AuthService
+    private store: Store<fromApp.AppState>
   ) {}
 
   ngOnInit(): void {
-    this.userSub = this.authService.user.subscribe((user) => {
-      // this.isLoggedIn = !user ? false : true;
-      this.isLoggedIn = !!user; // Shortened syntax, so if !user === true, so no user then it will actually return false because of the extra !. Also, if the !user === false, it means there is a user and then the ! will make it true.
-    });
-  }
+    // this.userSub = this.authService.user.subscribe((user) => {
+    //   // this.isLoggedIn = !user ? false : true;
+    //   this.isLoggedIn = !!user; // Shortened syntax, so if !user === true, so no user then it will actually return false because of the extra !. Also, if the !user === false, it means there is a user and then the ! will make it true.
+    // });
 
-  // onSelect(feature: string) {
-  //   this.featureSelected.emit(feature);
-  // }
+    this.userSub = this.store
+      .select('auth')
+      .pipe(map((authState) => authState.user))
+      .subscribe((user) => {
+        this.isLoggedIn = !!user;
+      });
+  }
 
   onSaveData() {
     this.dataStorageService.storeRecipes();
@@ -40,7 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    this.authService.signOut();
+    this.store.dispatch(new AuthActions.Logout());
   }
 
   ngOnDestroy(): void {

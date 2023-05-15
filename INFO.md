@@ -144,6 +144,8 @@ They are used to transform an output.
 
 E.g., you are using .subscribe() method to get data and you can transform that data by using .pipe().subscribe(...) where, inside of pipe(), you can provide many different functions to transform the data, such as filter, map, etc.
 
+map() pipe automatically wraps what you return in an observable.
+
 ## Built-in pipes
 
 For example you have username = 'Max' and you output it with string interpolation {{ username }}, but you want it to be uppercase only when you render it to the screen.
@@ -244,3 +246,9 @@ Here effect would run the code defined in it every time this.counter signal chan
 State managment solution by Angular team, basically React Redux Angular implementation.
 
 It's an alternative to using services, components and subjects to manage app state, although this approach can work generally for smaller and simpler apps that don't have a ton of components depending on the same data, etc.
+
+## Side effects with NgRx (@ngrx/effects package)
+
+Side effects are parts of the code that run some logic that is not that important that it would require immediate update of the current state.
+
+Important note about switchMap(), it must return a non error observable, also, in order to catch errors and such, you have to call pipe on the inner observable.

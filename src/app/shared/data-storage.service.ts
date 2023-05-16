@@ -1,18 +1,23 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+// ! NOT USED
+
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { exhaustMap, map, take, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
 import { RecipeService } from '../recipes/recipe.service';
-import { AuthService } from '../auth/auth.service';
 
 import { Recipe } from '../recipes/recipe.model';
+
+import * as fromApp from '../store/app.reducer';
+import * as RecipesActions from '../recipes/store/recipe.actions';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
   constructor(
     private http: HttpClient,
     private recipesService: RecipeService,
-    private authService: AuthService
+    private store: Store<fromApp.AppState>
   ) {}
 
   storeRecipes() {
@@ -32,7 +37,7 @@ export class DataStorageService {
     // take(1) operator means that we want to take only one value from the Observable and after that it should automatically unsub.
     // exhaustMap() works kind of like .then() with Promises, so once the user observable is done fetching the user, this.authService.user will get replaced by the inner observable we provided inside of exhaustMap()
     // Cool thing about this is that you can, as shown below, just continue adding other operators that should work with the data or whatever the inner Observable returns
-    
+
     // return this.authService.user.pipe(
     //   take(1),
     //   exhaustMap((user) => {
@@ -70,7 +75,8 @@ export class DataStorageService {
           });
         }),
         tap((fetchedRecipes) => {
-          this.recipesService.setRecipes(fetchedRecipes);
+          // this.recipesService.setRecipes(fetchedRecipes);
+          this.store.dispatch(new RecipesActions.SetRecipes(fetchedRecipes));
         })
       );
   }

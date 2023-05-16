@@ -113,6 +113,9 @@ There are three ways of handling data packages: Handle Data, Handle Error and Ha
 
 So, observable emits some data which observers receives or subscribes to.
 
+NOTE ABOUT OBSERVABLES
+If you create your own observable, you NEED TO UNSUBSCRIBE in ngOnDestroy since when you use your own custom observables, Angular won't "clean up" automatically
+
 E.g. this.route.params.subscribe(...), here, params is observable to which we can subscribe to allowing us to have a reactive template changes
 
 subscribe() can take up to three anonymous functions as params:

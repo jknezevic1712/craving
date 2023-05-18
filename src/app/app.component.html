@@ -2,6 +2,17 @@
 <app-header></app-header>
 <div class="container">
   <div class="row">
+    <div class="col-xs-12">
+      <h1>Animations</h1>
+      <button class="btn btn-primary" (click)="onAnimate()">Animate!</button>
+      <button class="btn btn-primary" (click)="onShrink()">Shrink!</button>
+      <hr />
+      <div [@divState]="state" style="width: 100px; height: 100px" (@divState.start)="animationStarted($event)" (@divState.done)="animationEnded($event)"></div>
+      <hr />
+      <div [@wildState]="wildState" style="width: 100px; height: 100px"></div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-12">
       <!-- <app-recipes *ngIf="loadedFeature === 'recipes'"></app-recipes>
       <app-shopping-list

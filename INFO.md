@@ -483,26 +483,26 @@ Example:
 
 html file ->
 
-<div [innerHTML]="content"></div>
+`<div [innerHTML]="content"></div>`
 
 ts file ->
 
+/*
 export class AppComponent {
   content: string | null = null;
 
   constructor() {
     // Simulating async task
-    /*
-
+    
     Using our own component like this will not work because Angular will not consider this after it has loaded our app because the compilation of the templates,
     and therefore the part where it understands your component selectors is already done by that point of time.
-
-    */
+    
     setTimeout(() => {
       this.content = "<app-alert message='Rendered dynamically'></app-alert>";
     }, 1000);
   }
 }
+*/
 
 Angular has a way of basically taking our Angular component and putting it into a totally encapsulated self bootstrapping HTML element which you can dump into your Angular app.
 This is done by installing `npm i --save @angular/elements` library and using `createCustomElement`.
